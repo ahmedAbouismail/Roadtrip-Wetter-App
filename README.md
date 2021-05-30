@@ -1,3 +1,3 @@
 # Roadtrip Wetter App
-Bitte alle Unterlagen bzw Code entsprechend der vorgegebenen Struktur ablegen.
-Grundsätzlich im Master Branch einchecken
+
+Die WRIP Anwendung soll eine einfach Lösung sein um einen Roadtrip vom Wetter abhängig zu planen.
