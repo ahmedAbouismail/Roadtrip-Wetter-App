@@ -46,7 +46,7 @@ function RouteForm() {
         <div>
             {inputFields.map(inputField => (
                 <div key={inputField.id}>
-                    <h3>Ort {inputFields.indexOf(inputField) + 1} hinzfügen</h3>
+                    <h3>Ort {inputFields.indexOf(inputField) + 1} hinzufügen</h3>
                     <label htmlFor="country_field">Land</label>
                     <LocationSearchInput />
           

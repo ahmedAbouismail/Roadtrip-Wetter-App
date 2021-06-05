@@ -1,6 +1,7 @@
 import './App.css';
 import {useState} from 'react';
 import RouteEingeben from './components/RouteForm/routeForm'
+import Example from './components/DateForm/dateForm'
 
 
 function ListRoute({route}) {
@@ -21,8 +22,11 @@ function App() {
   }
   
   return (
-        <RouteEingeben />
-    
+    <div>
+      <RouteEingeben />
+      <Example/>
+    </div>
+        
     // <div className="App">
     //   <body>
     //     <nav>
