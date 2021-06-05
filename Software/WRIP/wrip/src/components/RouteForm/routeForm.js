@@ -1,5 +1,7 @@
 import {React, useState} from 'react'
 import { v4 as uuidv4 } from 'uuid';
+import LocationSearchInput from './GoogleAutoComp'
+   
 
 const address = [{
     id: uuidv4(),
@@ -46,21 +48,11 @@ function RouteForm() {
                 <div key={inputField.id}>
                     <h3>Ort {inputFields.indexOf(inputField) + 1} hinzfügen</h3>
                     <label htmlFor="country_field">Land</label>
-                    <input 
-                    id="country_field" 
-                    name="country" 
-                    value={inputField.country}
-                    onChange={event => handleChangeInput(inputField.id, event)}
-                    />
-                    <label htmlFor="city_field">City</label>
-                    <input 
-                    id="city_field" 
-                    name="city" 
-                    value={inputField.city}
-                    onChange={event => handleChangeInput(inputField.id, event)}
-                    />
-                    <button onClick={handleAddFields}>ADD</button>
-                    <button 
+                    <LocationSearchInput />
+          
+                    <button  
+                    onClick={handleAddFields}>ADD</button>
+                    <button className="buttons"
                     disabled={inputFields.length === 1} 
                     onClick={() => handleRemoveFields(inputField.id)}>remove</button>
                 </div>

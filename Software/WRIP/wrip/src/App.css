@@ -5,3 +5,16 @@
     display: inline;
     color: aquamarine;
 }
+
+.buttons{
+    display:inline;
+}
+
+.feld{
+    display: inline;
+}
+
+.inputFeld{
+    width: 500px;
+    height: 500px;
+}
