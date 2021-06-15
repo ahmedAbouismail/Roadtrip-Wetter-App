@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 // CSS Modules, react-datepicker-cssmodules.css
 // import 'react-datepicker/dist/react-datepicker-cssmodules.css';
 
-const Example = () => {
+const DateField = () => {
     const [startDate, setStartDate] = useState(null);
     return (
         <div>
@@ -24,4 +24,4 @@ const Example = () => {
     );
   };
 
-export default Example
+export default DateField

@@ -1,9 +1,9 @@
 import './App.css';
 import {useState} from 'react';
 import RouteEingeben from './components/RouteForm/routeForm'
-import Example from './components/DateForm/dateForm'
+import DateField from './components/DateForm/DateField'
 import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Frontend/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import RoutePlaning from './components/pages/RoutePlaning';
