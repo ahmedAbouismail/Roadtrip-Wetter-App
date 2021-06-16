@@ -9,7 +9,7 @@ import GoogleMap from '../google-map/GoogleMap';
 import AutoComplete from '../google-autocomplete-comp/Autocomplete';
 
 // consts
-import LOS_ANGELES_CENTER from '../../const/la_center';
+import HTW_CENTER from '../../const/la_center';
 
 class Autocomplete extends Component {
   constructor(props) {
@@ -47,7 +47,7 @@ class Autocomplete extends Component {
         )} */}
         <GoogleMap
           defaultZoom={10}
-          defaultCenter={LOS_ANGELES_CENTER}
+          defaultCenter={HTW_CENTER}
           bootstrapURLKeys={{
             key: process.env.REACT_APP_MAP_KEY,
             libraries: ['places', 'geometry'],
