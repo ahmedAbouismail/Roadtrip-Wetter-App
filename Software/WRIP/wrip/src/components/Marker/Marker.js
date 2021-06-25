@@ -20,10 +20,15 @@ const Wrapper = styled.div`
 `;
 
 const Marker = ({ text, onClick }) => (
+  console.log("text", text),
+  console.log("onClik", onClick),
   <Wrapper
     alt={text}
     onClick={onClick}
   />
+  // ,
+  // console.log("text", text),
+  // console.log("onClik", onClick)
 );
 
 Marker.defaultProps = {
@@ -33,6 +38,7 @@ Marker.defaultProps = {
 Marker.propTypes = {
   onClick: PropTypes.func,
   text: PropTypes.string.isRequired,
+  
 };
 
 export default Marker;

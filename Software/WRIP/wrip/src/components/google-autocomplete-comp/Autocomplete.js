@@ -47,6 +47,8 @@ class AutoComplete extends Component {
 
     addplace(place);
     this.searchInput.blur();
+    // console.log("Place". place);
+    // this.props.handleOrt(place);
   };
 
   clearSearchBox() {
@@ -59,6 +61,7 @@ class AutoComplete extends Component {
         <input
           ref={(ref) => {
             this.searchInput = ref;
+            console.log("Ref", ref);
           }}
           type="text"
           onFocus={this.clearSearchBox}
