@@ -7,7 +7,7 @@ function Footer() {
     <div className='footer-container'>
       <section className='footer-subscription'>
         <p className='footer-subscription-heading'>
-          Plan your trip and shar it with friends!
+          Plan your trip and share it with friends!
         </p>
         <p className='footer-subscription-text'>
           Build by HTW Berlin Students

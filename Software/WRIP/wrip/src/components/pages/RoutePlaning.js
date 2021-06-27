@@ -1,6 +1,5 @@
 import {React, useState} from 'react';
 import '../../App.css';
-import Planing from '../Frontend/Planing';
 import Autocomplete from '../google-autocomplete/AutoCompelete'
 import DateField from '../DateForm/DateField'
 import OrteDisplay from '../ort-display/ort-display';
@@ -11,6 +10,7 @@ import DisplayWeather from '../DisplayWeather/DisplayWeather';
 // const init = [{
 //   data: null
 // }];
+
 function RoutePlaning() {
   const [orte, setOrte] = useState([]);
   const [weather, setWeather] = useState([]);
@@ -60,15 +60,16 @@ function RoutePlaning() {
       console.log("Dates" ,date);
   }
   return (
-    <>
+    <div>
       {/* <Planing /> */}
         <Autocomplete handleOrt={handleOrt} weatherData={weatherData} orte={orte}/>
         {console.log("After comp", orte)}
         {console.log("After data", weather)}
+
         {!isEmpty(orte) 
           && orte.map((ort)=>(
-            <div style={{marginTop:'1000px'}}>
-            <p 
+            <div style={{marginTop:'100px'}}>
+            <p
             key={orte.indexOf(ort)}
             >{ort[1]}</p>
 
@@ -91,9 +92,11 @@ function RoutePlaning() {
           </div>
         ))
       }
-      
-    </>
+
+
+    </div>
   );
 }
 
 export default RoutePlaning;
+

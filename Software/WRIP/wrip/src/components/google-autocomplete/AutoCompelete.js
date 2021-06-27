@@ -65,12 +65,26 @@ class Autocomplete extends Component {
       places, mapApiLoaded, mapInstance, mapApi,
     } = this.state;
     return (
-      <>
+      <div>
         {/* {mapApiLoaded && (
           <AutoComplete map={mapInstance} mapApi={mapApi} addplace={this.addPlace} />
         )} */}
+
+        {mapApiLoaded && (
+          <AutoComplete
+          map={mapInstance} 
+          mapApi={mapApi} 
+          addplace={this.addPlace} 
+          // handleOrt={this.props.handleOrt}
+          />
+        )}
+        {/* {console.log("Aufruf")}
+        {!isEmpty(places) &&
+        <OrteDisplay 
+        ort={this.state.places[0].address_components[1].long_name}/>} */}
+
         <GoogleMap
-          defaultZoom={10}
+          defaultZoom={12}
           defaultCenter={HTW_CENTER}
           bootstrapURLKeys={{
             key: process.env.REACT_APP_MAP_KEY,
@@ -98,20 +112,7 @@ class Autocomplete extends Component {
               />
             ))}
         </GoogleMap>
-
-        {mapApiLoaded && (
-          <AutoComplete
-          map={mapInstance} 
-          mapApi={mapApi} 
-          addplace={this.addPlace} 
-          // handleOrt={this.props.handleOrt}
-          />
-        )}
-        {/* {console.log("Aufruf")}
-        {!isEmpty(places) &&
-        <OrteDisplay 
-        ort={this.state.places[0].address_components[1].long_name}/>} */}
-      </>
+      </div>
     );
   }
 }

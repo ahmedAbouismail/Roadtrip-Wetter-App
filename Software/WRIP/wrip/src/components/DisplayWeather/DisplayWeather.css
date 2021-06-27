@@ -1,5 +1,5 @@
 .cards {
-  padding: 4rem;
+  padding: 20px 0px 20px;
   background: #fff;
 }
 
@@ -9,7 +9,7 @@ h1 {
 
 .cards__container {
   display: flex;
-  flex-flow: column;
+  flex-flow: grid;
   align-items: center;
   max-width: 1120px;
   width: 90%;
@@ -18,12 +18,11 @@ h1 {
 
 .cards__wrapper {
   position: relative;
-  margin: 50px 0 45px;
-  width: 100%;
+  margin: 20px 0 20px;
 }
 
 .cards__items {
-  margin-bottom: 24px;
+  margin-bottom: 30px;
 }
 
 .cards__item {
@@ -36,7 +35,7 @@ h1 {
 .cards__item__link {
   display: flex;
   flex-flow: column;
-  width: 100%;
+  width: 150px;
   box-shadow: 0 6px 20px rgba(56, 125, 255, 0.17);
   -webkit-filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
   filter: drop-shadow(0 6px 20px rgba(56, 125, 255, 0.017));
@@ -52,18 +51,9 @@ h1 {
   overflow: hidden;
 }
 
-.cards__item__pic-wrap::after {
-  content: attr(data-category);
-  position: absolute;
-  bottom: 0;
-  margin-left: 10px;
-  padding: 6px 8px;
-  max-width: calc((100%) - 60px);
-  font-size: 12px;
-  font-weight: 700;
-  color: #fff;
-  background-color: #1f98f4;
-  box-sizing: border-box;
+.fade-img {
+  animation-name: fade-img;
+  animation-duration: 2s;
 }
 
 .cards__item__img {
@@ -81,14 +71,19 @@ h1 {
   transition: all 0.2s linear;
 }
 
+.cards__item__img:hover {
+  transform: scale(1.1);
+}
+
 .cards__item__info {
-  padding: 20px 30px 30px;
+  padding: 20px 0px 50px;
 }
 
 .cards__item__text {
   color: #252e48;
   font-size: 18px;
   line-height: 24px;
+  text-align: center;
 }
 
 @media only screen and (min-width: 1200px) {

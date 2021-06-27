@@ -11,7 +11,7 @@ function OrteDisplay ({ort}) {
         <>
         
         // <div>
-            
+
         // </div>
         </>
     );

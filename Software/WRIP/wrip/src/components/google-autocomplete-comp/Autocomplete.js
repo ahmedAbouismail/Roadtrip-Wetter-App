@@ -1,13 +1,29 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+
 const Wrapper = styled.div`
   position: relative;
   align-items: center;
   justify-content: center;
   width: 100%;
-  padding: 20px;
+  padding: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 `;
+
+const divStyle = {
+  border: '1px solid #fff',
+  fontSize: '18px',
+  padding: '8px 20px',
+  borderRadius: '2px',
+  marginRight: '10px',
+  width: '300px',
+};
 
 class AutoComplete extends Component {
   constructor(props) {
@@ -65,7 +81,8 @@ class AutoComplete extends Component {
           }}
           type="text"
           onFocus={this.clearSearchBox}
-          placeholder="Enter a location"
+          placeholder=" Enter a location"
+          style={divStyle}
         />
       </Wrapper>
     );
