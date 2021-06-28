@@ -67,37 +67,33 @@ function DisplayWeather({ info }) {
   }
   return (
     <div>
-      {!isEmpty(info) &&
-        info.list.map((item) => (
-          <div class="cards">
-            <div className="cards__container">
-              <div className="cards__wrapper">
-                <ul className="cards__items">
-                  <li className="cards__item">
-                    <div className="cards__item__link">
-                      <figure className="cards__item__pic-wrap">
-                        <img
-                          className="cards__item__img"
-                          src={imageUrl(item)}
-                        />
-                      </figure>
-                      <div lassName="cards__item__info">
-                        <h5 className="cards__item__text"></h5>
-                        <p className="cards__item__text">
-                          {parseInt(item.temp.day)}° | {item.weather[0].main}
-                        </p>
-                        <button onClick={() => handleClick(item)}>
-                          Date: {new Date(item.dt * 1000).toLocaleDateString()}
-                        </button>
-                      </div>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
+      <div>
+        <div id="Empfehlung" className="empf"></div>
+        <div className="table_wrapper">
+          <div className="table_box">
+            {!isEmpty(info) &&
+              info.list.map((item) => (
+                <table className="t">
+                  <tr className="tr">
+                    <td className="td">
+                      <p className="weather_text">
+                        {parseInt(item.temp.day)}° | {item.weather[0].main}
+                      </p>
+                    </td>
+                    <td className="td">
+                      <img className="icon" src={imageUrl(item)} />
+                    </td>
+                    <td className="td">
+                      <button className="btn" onClick={() => handleClick(item)}>
+                        {new Date(item.dt * 1000).toLocaleDateString()}
+                      </button>
+                    </td>
+                  </tr>
+                </table>
+              ))}
           </div>
-        ))}
-      <div id="Empfehlung"></div>
+        </div>
+      </div>
     </div>
   );
 }

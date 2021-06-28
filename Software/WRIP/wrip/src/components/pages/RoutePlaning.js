@@ -1,15 +1,24 @@
-import {React, useState} from 'react';
-import '../../App.css';
-import Autocomplete from '../google-autocomplete/AutoCompelete'
-import DateField from '../DateForm/DateField'
-import OrteDisplay from '../ort-display/ort-display';
-import isEmpty from 'lodash.isempty';
-import Weather from '../weather/weather'
-import DisplayWeather from '../DisplayWeather/DisplayWeather';
+import { React, useState } from "react";
+import "../../App.css";
+import Autocomplete from "../google-autocomplete/AutoCompelete";
+import DateField from "../DateForm/DateField";
+import OrteDisplay from "../ort-display/ort-display";
+import isEmpty from "lodash.isempty";
+import Weather from "../weather/weather";
+import DisplayWeather from "../DisplayWeather/DisplayWeather";
+import { Button } from "./../Frontend/Button";
 
 // const init = [{
 //   data: null
 // }];
+
+const divStyle = {
+  display: "flex",
+  flexFlow: "column",
+  fontSize: "30px",
+  padding: "20px 20px",
+  width: "70%",
+};
 
 function RoutePlaning() {
   const [orte, setOrte] = useState([]);
@@ -19,16 +28,16 @@ function RoutePlaning() {
 
   // var date = null
 
-  const handleOrt = (id ,n, la, ln)=>{
-    console.log("params", n,la, ln);
-      setOrte([...orte, [id, n, la, ln]])
-      console.log("Ort", orte);
+  const handleOrt = (id, n, la, ln) => {
+    console.log("params", n, la, ln);
+    setOrte([...orte, [id, n, la, ln]]);
+    console.log("Ort", orte);
   };
 
   // const handleMarker =(marker)=>{
   //   setMarkers([...markers, markers])
   // }
-  const handleDelete =({target: {id}})=>{
+  const handleDelete = ({ target: { id } }) => {
     const values = [...orte];
     values.splice(id, 1);
     setOrte(values);
@@ -36,67 +45,67 @@ function RoutePlaning() {
     const weatherValues = [...weather];
     weatherValues.splice(id, 1);
     setWeather(weatherValues);
-  }
+  };
 
   async function weatherData(la, ln) {
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${la}&lon=${ln}&units=metric&cnt=16&appid=${APIKEY}`
     )
-    .then((res) => res.json())
-    .then((data) => data)
-  
+      .then((res) => res.json())
+      .then((data) => data);
+
     setWeather([...weather, { data: data }]);
   }
 
-  function handleClick(e){
+  function handleClick(e) {
     console.log("id", e.target.id);
     console.log("key", e.target.key);
-
   }
 
-  function handleDate(dateValue)
-  {
-      setDate([...date, {dateValue}])
-      console.log("Dates" ,date);
+  function handleDate(dateValue) {
+    setDate([...date, { dateValue }]);
+    console.log("Dates", date);
   }
   return (
     <div>
       {/* <Planing /> */}
-        <Autocomplete handleOrt={handleOrt} weatherData={weatherData} orte={orte}/>
-        {console.log("After comp", orte)}
-        {console.log("After data", weather)}
+      <Autocomplete
+        handleOrt={handleOrt}
+        weatherData={weatherData}
+        orte={orte}
+      />
+      {console.log("After comp", orte)}
+      {console.log("After data", weather)}
 
-        {!isEmpty(orte) 
-          && orte.map((ort)=>(
-            <div style={{marginTop:'100px'}}>
-            <p
-            key={orte.indexOf(ort)}
-            >{ort[1]}</p>
-
-            
-            <button
-            id={orte.indexOf(ort)}
-            onClick={handleDelete}
-            >
-              Delete
-            </button>
-            </div>
-          ))
-        }
-
-      { !isEmpty(weather)&&
-        weather.map((info)=>(
-          console.log("Info", info),
+      {!isEmpty(orte) &&
+        orte.map((ort) => (
           <div>
-            <DisplayWeather info = {info.data}/>
+            <div style={divStyle}>
+              <Button
+                className="btns"
+                buttonStyle="btn--outline"
+                buttonSize="btn--medium"
+                id={orte.indexOf(ort)}
+                onClick={handleDelete}
+              >
+                Delete: <p key={orte.indexOf(ort)}>{ort[1]}</p>
+              </Button>
+            </div>
+            {!isEmpty(weather) &&
+              weather.map(
+                (info) => (
+                  console.log("Info", info),
+                  (
+                    <div>
+                      <DisplayWeather info={info.data} />
+                    </div>
+                  )
+                )
+              )}
           </div>
-        ))
-      }
-
-
+        ))}
     </div>
   );
 }
 
 export default RoutePlaning;
-
