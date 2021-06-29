@@ -1,45 +1,25 @@
 import './App.css';
 import {useState} from 'react';
-import RouteEingeben from './components/RouteForm/routeForm'
-import Example from './components/DateForm/dateForm'
+import DateField from './components/DateForm/DateField'
+import {BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import Navbar from './components/Frontend/Navbar';
+import Home from './components/pages/Home';
+import About from './components/pages/About';
+import RoutePlaning from './components/pages/RoutePlaning';
 
-
-function ListRoute({route}) {
-  return(
-    <div>
-      <h3>{route.country}</h3>
-      <h3>{route.city}</h3>
-    </div>
-  )
-}
 function App() {
-
-  const [forms, setform] = useState(<RouteEingeben/>)
-
- 
-  function addOne(form) {
-    setform([...forms], {country: "", city: ""});
-  }
-  
   return (
-    <div>
-      <RouteEingeben />
-      <Example/>
+    <div className="App">
+      <Router>
+        <Navbar />
+        <Switch>
+          <Route path='/' exact component={Home} />
+          <Route path='/about' component={About} />
+          <Route path='/routePlaning' component={RoutePlaning} />
+        </Switch>
+      </Router>
+      
     </div>
-        
-    // <div className="App">
-    //   <body>
-    //     <nav>
-    //       <h1>Navbar</h1>
-    //     </nav>
-    //     <main>
-    //       <h1>Main</h1>
-    //     </main>
-    //   </body>
-    //   <footer>
-    //       <h1>Footer</h1>
-    //   </footer>
-    // </div>
   );
 }
 
