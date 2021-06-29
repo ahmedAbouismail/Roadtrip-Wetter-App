@@ -12,14 +12,6 @@ import { Button } from "./../Frontend/Button";
 //   data: null
 // }];
 
-const divStyle = {
-  display: "flex",
-  flexFlow: "column",
-  fontSize: "30px",
-  padding: "20px 20px",
-  width: "70%",
-};
-
 function RoutePlaning() {
   const [orte, setOrte] = useState([]);
   const [weather, setWeather] = useState([]);
@@ -80,11 +72,11 @@ function RoutePlaning() {
       {!isEmpty(orte) &&
         orte.map((ort) => (
           <div>
-            <div style={divStyle}>
+            <div>
               <Button
                 className="btns"
-                buttonStyle="btn--outline"
-                buttonSize="btn--medium"
+                buttonStyle="btn--primary"
+                buttonSize="btn--large"
                 id={orte.indexOf(ort)}
                 onClick={handleDelete}
               >

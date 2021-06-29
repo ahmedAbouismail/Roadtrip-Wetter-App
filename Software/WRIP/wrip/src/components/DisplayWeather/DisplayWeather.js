@@ -84,7 +84,10 @@ function DisplayWeather({ info }) {
                       <img className="icon" src={imageUrl(item)} />
                     </td>
                     <td className="td">
-                      <button className="btn" onClick={() => handleClick(item)}>
+                      <button
+                        className="btns"
+                        onClick={() => handleClick(item)}
+                      >
                         {new Date(item.dt * 1000).toLocaleDateString()}
                       </button>
                     </td>

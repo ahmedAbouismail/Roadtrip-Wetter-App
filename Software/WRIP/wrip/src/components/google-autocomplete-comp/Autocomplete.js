@@ -1,28 +1,17 @@
-import React, { Component } from 'react';
-import styled from 'styled-components';
-
+import React, { Component } from "react";
+import styled from "styled-components";
 
 const Wrapper = styled.div`
-  position: relative;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  padding: 30px;
-  background: rgba(0, 0, 0, 0.6);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 40px;
 `;
 
 const divStyle = {
-  border: '1px solid #fff',
-  fontSize: '18px',
-  padding: '8px 20px',
-  borderRadius: '2px',
-  marginRight: '10px',
-  width: '300px',
+  border: "1px solid #fff",
+  fontSize: "18px",
+  padding: "8px 20px",
+  borderRadius: "3px",
+  width: "100%",
 };
 
 class AutoComplete extends Component {
@@ -40,10 +29,10 @@ class AutoComplete extends Component {
     };
     this.autoComplete = new mapApi.places.Autocomplete(
       this.searchInput,
-      options,
+      options
     );
-    this.autoComplete.addListener('place_changed', this.onPlaceChanged);
-    this.autoComplete.bindTo('bounds', map);
+    this.autoComplete.addListener("place_changed", this.onPlaceChanged);
+    this.autoComplete.bindTo("bounds", map);
   }
 
   componentWillUnmount({ mapApi } = this.props) {
@@ -68,7 +57,7 @@ class AutoComplete extends Component {
   };
 
   clearSearchBox() {
-    this.searchInput.value = '';
+    this.searchInput.value = "";
   }
 
   render() {
@@ -81,7 +70,7 @@ class AutoComplete extends Component {
           }}
           type="text"
           onFocus={this.clearSearchBox}
-          placeholder=" Enter a location"
+          placeholder=" Berlin"
           style={divStyle}
         />
       </Wrapper>

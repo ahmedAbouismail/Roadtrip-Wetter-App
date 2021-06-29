@@ -1,14 +1,13 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import GoogleMapReact from 'google-map-react';
-
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import GoogleMapReact from "google-map-react";
 
 const GoogleMap = ({ children, ...props }) => (
-  <div style={{ height: '50vh', width: '100%'}}>
-    <GoogleMapReact 
+  <div style={{ height: "100%", width: "100%" }}>
+    <GoogleMapReact
       bootstrapURLKeys={{
-        key:process.env.REACT_APP_MAP_KEY,
+        key: process.env.REACT_APP_MAP_KEY,
       }}
       {...props}
     >
