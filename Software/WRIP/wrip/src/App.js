@@ -6,7 +6,7 @@ import Navbar from './components/Frontend/Navbar';
 import Home from './components/pages/Home';
 import About from './components/pages/About';
 import RoutePlaning from './components/pages/RoutePlaning';
-
+import Main from "./components/pages/Main";
 function App() {
   return (
     <div className="App">
@@ -15,7 +15,7 @@ function App() {
         <Switch>
           <Route path='/' exact component={Home} />
           <Route path='/about' component={About} />
-          <Route path='/routePlaning' component={RoutePlaning} />
+          <Route path='/routePlaning' component={Main} />
         </Switch>
       </Router>
       

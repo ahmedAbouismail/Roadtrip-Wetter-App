@@ -44,9 +44,7 @@ const Marker = ({ text, onClick }) => (
   console.log("text", text),
   console.log("onClik", onClick),
   (<Wrapper alt={text} onClick={onClick} />)
-  // ,
-  // console.log("text", text),
-  // console.log("onClik", onClick)
+
 );
 
 Marker.defaultProps = {

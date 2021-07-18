@@ -11,22 +11,30 @@ import AutoComplete from "../google-autocomplete-comp/Autocomplete";
 // consts
 import HTW_CENTER from "../../const/la_center";
 import OrteDisplay from "../ort-display/ort-display";
-
+import { createFileName, useScreenshot } from 'use-react-screenshot'
 import "./Search.css";
 
 class Autocomplete extends Component {
   constructor(props) {
     super(props);
 
+    // const [image, takeScreenshot] = useScreenshot({
+      
+    // });
+
+   
     this.state = {
       mapApiLoaded: false,
       mapInstance: null,
       mapApi: null,
       places: [],
+
+    
     };
   }
 
   apiHasLoaded = (map, maps) => {
+    this.props.handleInput(true, map, maps);
     this.setState({
       mapApiLoaded: true,
       mapInstance: map,
@@ -34,43 +42,41 @@ class Autocomplete extends Component {
     });
   };
 
+
+  
+
+
   addPlace = (place) => {
     this.setState({ places: [place] });
-    // this.setMarkers([{place}]);
-    // console.log("Markers", this.markers);
-    // this.setState({places, [place]});
-    // this.setState({places: [place]});
 
-    console.log("Places Complete", this.state.places);
-    // console.log("place", place.address_components[1].long_name);
-    // console.log("places", this.state.places[0].address_components[1].long_name);
-    var lat = place.geometry.location.lat();
-    var lng = place.geometry.location.lng();
-    this.props.handleOrt(place.place_id, place.name, lat, lng);
-    if (lat != null && lng != null) {
-      this.props.weatherData(lat, lng);
-    }
+    // console.log("Places Complete", this.state.places);
+
+    // var lat = place.geometry.location.lat();
+    // var lng = place.geometry.location.lng();
+    // this.props.handleOrt(place.place_id, place.name, lat, lng);
+    // if (lat != null && lng != null) {
+    //   this.props.weatherData(lat, lng);
+    // }
   };
 
   render() {
     // this.props.handleOrt(this.state.places);
     const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
     return (
-      <div>
+      <div >
         <div>
           <div className="wrapper">
             <div className="content">
               <div className="search">
                 <h1>Search</h1>
                 <p>Enter a location you want to visit</p>
-                {mapApiLoaded && (
+                {/* {mapApiLoaded && (
                   <AutoComplete
                     map={mapInstance}
                     mapApi={mapApi}
                     addplace={this.addPlace}
-                    // handleOrt={this.props.handleOrt}
                   />
-                )}
+                )} */}
                 <div className="place">
                   <button className="delete">X</button>
                   <h4 className="placeDiscription">
@@ -87,6 +93,7 @@ class Autocomplete extends Component {
               </div>
               <div className="mapWrapper">
                 <GoogleMap
+            
                   defaultZoom={10}
                   defaultCenter={HTW_CENTER}
                   bootstrapURLKeys={{
@@ -112,6 +119,7 @@ class Autocomplete extends Component {
             </div>
           </div>
         </div>
+
       </div>
     );
   }
