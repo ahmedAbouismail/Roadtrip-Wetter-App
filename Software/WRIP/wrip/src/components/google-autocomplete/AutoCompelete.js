@@ -11,25 +11,21 @@ import AutoComplete from "../google-autocomplete-comp/Autocomplete";
 // consts
 import HTW_CENTER from "../../const/la_center";
 import OrteDisplay from "../ort-display/ort-display";
-import { createFileName, useScreenshot } from 'use-react-screenshot'
-import "./Search.css";
+import { createFileName, useScreenshot } from "use-react-screenshot";
 
 class Autocomplete extends Component {
   constructor(props) {
     super(props);
 
     // const [image, takeScreenshot] = useScreenshot({
-      
+
     // });
 
-   
     this.state = {
       mapApiLoaded: false,
       mapInstance: null,
       mapApi: null,
       places: [],
-
-    
     };
   }
 
@@ -41,10 +37,6 @@ class Autocomplete extends Component {
       mapApi: maps,
     });
   };
-
-
-  
-
 
   addPlace = (place) => {
     this.setState({ places: [place] });
@@ -63,63 +55,33 @@ class Autocomplete extends Component {
     // this.props.handleOrt(this.state.places);
     const { places, mapApiLoaded, mapInstance, mapApi } = this.state;
     return (
-      <div >
+      <div>
         <div>
-          <div className="wrapper">
-            <div className="content">
-              <div className="search">
-                <h1>Search</h1>
-                <p>Enter a location you want to visit</p>
-                {/* {mapApiLoaded && (
-                  <AutoComplete
-                    map={mapInstance}
-                    mapApi={mapApi}
-                    addplace={this.addPlace}
+          <div className="mapWrapper">
+            <GoogleMap
+              defaultZoom={10}
+              defaultCenter={HTW_CENTER}
+              bootstrapURLKeys={{
+                key: process.env.REACT_APP_MAP_KEY,
+                libraries: ["places", "geometry"],
+              }}
+              yesIWantToUseGoogleMapApiInternals
+              onGoogleApiLoaded={({ map, maps }) =>
+                this.apiHasLoaded(map, maps)
+              }
+            >
+              {!isEmpty(this.props.orte) &&
+                this.props.orte.map((ort) => (
+                  <Marker
+                    key={ort[0]}
+                    text={ort[1]}
+                    lat={ort[2]}
+                    lng={ort[3]}
                   />
-                )} */}
-                <div className="place">
-                  <button className="delete">X</button>
-                  <h4 className="placeDiscription">
-                    HTW Berlin (logged place)
-                  </h4>
-                </div>
-                <p className="description">
-                  Here you can see the weather for the next 16 days. Chose a day
-                  when you want to arrive at that location.
-                </p>
-                <div className="weather">
-                  <p className="description">Weather information</p>
-                </div>
-              </div>
-              <div className="mapWrapper">
-                <GoogleMap
-            
-                  defaultZoom={10}
-                  defaultCenter={HTW_CENTER}
-                  bootstrapURLKeys={{
-                    key: process.env.REACT_APP_MAP_KEY,
-                    libraries: ["places", "geometry"],
-                  }}
-                  yesIWantToUseGoogleMapApiInternals
-                  onGoogleApiLoaded={({ map, maps }) =>
-                    this.apiHasLoaded(map, maps)
-                  }
-                >
-                  {!isEmpty(this.props.orte) &&
-                    this.props.orte.map((ort) => (
-                      <Marker
-                        key={ort[0]}
-                        text={ort[1]}
-                        lat={ort[2]}
-                        lng={ort[3]}
-                      />
-                    ))}
-                </GoogleMap>
-              </div>
-            </div>
+                ))}
+            </GoogleMap>
           </div>
         </div>
-
       </div>
     );
   }

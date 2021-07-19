@@ -34,14 +34,9 @@ function DisplayWeather({ info }) {
       item.weather[0].main === "Dust"
     ) {
       document.getElementById("Empfehlung").innerText =
-        "Sie haben " +
-        `${new Date(item.dt * 1000).toLocaleDateString()}` +
-        "ausgewählt." +
-        " Wir empfehlen Ihnen die folgeden Tagen: " +
-        `${getBestDays()}`;
+        " Passt nicht " + `${getBestDays()}`;
     } else {
-      document.getElementById("Empfehlung").innerText =
-        "Empfelung: Passt zu einer guten Reise";
+      document.getElementById("Empfehlung").innerText = "Passt";
     }
   }
 
@@ -68,33 +63,32 @@ function DisplayWeather({ info }) {
   return (
     <div>
       <div>
-        <div id="Empfehlung" className="empf"></div>
-        <div className="table_wrapper">
-          <div className="table_box">
-            {!isEmpty(info) &&
-              info.list.map((item) => (
-                <table className="t">
-                  <tr className="tr">
-                    <td className="td">
-                      <p className="weather_text">
-                        {parseInt(item.temp.day)}° | {item.weather[0].main}
-                      </p>
-                    </td>
-                    <td className="td">
-                      <img className="icon" src={imageUrl(item)} />
-                    </td>
-                    <td className="td">
-                      <button
-                        className="btns"
-                        onClick={() => handleClick(item)}
-                      >
-                        {new Date(item.dt * 1000).toLocaleDateString()}
-                      </button>
-                    </td>
-                  </tr>
-                </table>
-              ))}
-          </div>
+        <div className="table_box">
+          {!isEmpty(info) &&
+            info.list.map((item) => (
+              <table className="tible">
+                <tr
+                  className="tibleRow"
+                  tabindex="1"
+                  onClick={() => handleClick(item)}
+                >
+                  <td className="tibleCell">
+                    <p>{parseInt(item.temp.day)}°</p>
+                  </td>
+                  <td className="tibleCell">
+                    <p>|</p>
+                  </td>
+                  <td className="tibleCell">
+                    <img className="icon" src={imageUrl(item)} />
+                  </td>
+                  <td className="tibleCell">
+                    <p className="date">
+                      {new Date(item.dt * 1000).toLocaleDateString()}
+                    </p>
+                  </td>
+                </tr>
+              </table>
+            ))}
         </div>
       </div>
     </div>
@@ -102,3 +96,7 @@ function DisplayWeather({ info }) {
 }
 
 export default DisplayWeather;
+
+/*
+<div id="Empfehlung" className="empf"></div>
+*/
