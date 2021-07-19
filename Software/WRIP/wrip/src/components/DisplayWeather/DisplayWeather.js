@@ -90,6 +90,7 @@ function DisplayWeather({ info }) {
               </table>
             ))}
         </div>
+        <div id="Empfehlung" className="empf"></div>
       </div>
     </div>
   );
@@ -98,5 +99,5 @@ function DisplayWeather({ info }) {
 export default DisplayWeather;
 
 /*
-<div id="Empfehlung" className="empf"></div>
+
 */
