@@ -24,6 +24,7 @@ function DisplayWeather({ info }) {
   }
 
   function handleClick(item) {
+    console.log("Item", item.dt);
     if (
       item.weather[0].main === "Rain" ||
       item.weather[0].main === "Thunderstorm" ||
@@ -33,10 +34,20 @@ function DisplayWeather({ info }) {
       item.weather[0].main === "Drizzle" ||
       item.weather[0].main === "Dust"
     ) {
-      document.getElementById("Empfehlung").innerText =
-        " Passt nicht " + `${getBestDays()}`;
+      // document.getElementById("Empfehlung").innerText =
+      //   " Passt nicht " + `${getBestDays()}`;
+      document.getElementById(info.city.id+item.dt).style.backgroundColor = "red";
+      // var elements  = document.getElementsByClassName("ranking_dot")
+      // for(var i = 0; i < elements.length; i++){
+      //   elements[i].style.backgroundColor = "red";
+      // }
     } else {
-      document.getElementById("Empfehlung").innerText = "Passt";
+      // document.getElementById("Empfehlung").innerText = "Passt";
+      document.getElementById(info.city.id+item.dt).style.backgroundColor = "green";
+      // var elements = document.getElementsByClassName("ranking_dot")
+      // for(var i = 0; i < elements.length; i++){
+      //   elements[i].style.backgroundColor = "green";
+      // }
     }
   }
 
@@ -68,12 +79,14 @@ function DisplayWeather({ info }) {
             info.list.map((item) => (
               <table className="tible">
                 <tr
+                  
                   className="tibleRow"
                   tabindex="1"
                   onClick={() => handleClick(item)}
                 >
                   <td className="tibleCell">
-                    <div className="ranking_dot"></div>
+                    {console.log("DatumID", info.city.id)}
+                    <div id={info.city.id+item.dt} className="ranking_dot"></div>
                   </td>
                   <td className="tibleCell">
                     <p>{parseInt(item.temp.day)}°</p>
