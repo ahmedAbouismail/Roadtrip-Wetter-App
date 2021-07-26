@@ -22,14 +22,23 @@ function RoutePlaning() {
   const [orte, setOrte] = useState([]);
   const [weather, setWeather] = useState([]);
   const [date, setDate] = useState([]);
-  const [image, takeScreenshot] = useScreenshot({
+  const [image, takeScreenShot] = useScreenshot({
     type: "image/jpeg",
-    quality: 1.0,
+    quality: 1.0
   });
+
+
   const [ready, setReady] = useState(false);
   const APIKEY = "29f32e030521b02c5cb257c4aa3c1d5e";
 
-  // var date = null
+  const download = (image, { name = "img", extension = "jpg" } = {}) => {
+    const a = document.createElement("a");
+    a.href = image;
+    a.download = createFileName(extension, name);
+    a.click();
+  };
+
+  const downloadScreenshot = () => takeScreenShot(ref.current).then(download);
 
   const handleOrt = (id, n, la, ln) => {
     console.log("params", n, la, ln);
@@ -87,7 +96,7 @@ function RoutePlaning() {
 
   return (
     <>
-      <div className="page">
+      <div className="page" ref={ref}>
         <div className="nav">
           <div className="input">
             <h1>Search</h1>
@@ -141,7 +150,8 @@ function RoutePlaning() {
                   {}
                 </div>
               ))}
-            <button className="screen_button">
+            <button className="screen_button"
+            onClick={downloadScreenshot}>
               <i class="uil uil-external-link-alt"></i>
               _Take a screenshot
             </button>
@@ -150,8 +160,6 @@ function RoutePlaning() {
         <div className="google_map">
           <Autocomplete
             handleInput={handleInput}
-            // handleOrt={handleOrt}
-            // weatherData={weatherData}
             orte={orte}
           />
         </div>
