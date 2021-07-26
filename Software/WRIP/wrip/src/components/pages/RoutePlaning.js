@@ -116,6 +116,9 @@ function RoutePlaning() {
                       {" "}
                       {ort[1]}
                     </p>
+                    <button className="edit_button">
+                      <i class="uil uil-pen edit_icon"></i>
+                    </button>
                   </div>
                   <p className="description">
                     Here you can see the weather for the next 16 days. Chose a
@@ -138,6 +141,10 @@ function RoutePlaning() {
                   {}
                 </div>
               ))}
+            <button className="screen_button">
+              <i class="uil uil-external-link-alt"></i>
+              _Take a screenshot
+            </button>
           </div>
         </div>
         <div className="google_map">

@@ -73,6 +73,9 @@ function DisplayWeather({ info }) {
                   onClick={() => handleClick(item)}
                 >
                   <td className="tibleCell">
+                    <div className="ranking_dot"></div>
+                  </td>
+                  <td className="tibleCell">
                     <p>{parseInt(item.temp.day)}°</p>
                   </td>
                   <td className="tibleCell">
