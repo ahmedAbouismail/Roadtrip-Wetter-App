@@ -82,6 +82,7 @@
 
 .weather_display {
   margin-top: 20px;
+  margin-bottom: 20px;
   border-radius: 20px;
   border-style: solid;
   border-color: rgb(255, 255, 255);

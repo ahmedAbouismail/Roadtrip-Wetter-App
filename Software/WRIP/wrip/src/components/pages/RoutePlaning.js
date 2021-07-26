@@ -24,9 +24,8 @@ function RoutePlaning() {
   const [date, setDate] = useState([]);
   const [image, takeScreenShot] = useScreenshot({
     type: "image/jpeg",
-    quality: 1.0
+    quality: 1.0,
   });
-
 
   const [ready, setReady] = useState(false);
   const APIKEY = "29f32e030521b02c5cb257c4aa3c1d5e";
@@ -139,9 +138,11 @@ function RoutePlaning() {
                         console.log("Weather", weather),
                         console.log("Info", info),
                         (
-                          <div className="weather_display">
+                          <div>
                             {info.id === ort[0] && (
-                              <DisplayWeather info={info.data} />
+                              <div className="weather_display">
+                                <DisplayWeather info={info.data} />
+                              </div>
                             )}
                           </div>
                         )
@@ -150,18 +151,10 @@ function RoutePlaning() {
                   {}
                 </div>
               ))}
-            <button className="screen_button"
-            onClick={downloadScreenshot}>
-              <i class="uil uil-external-link-alt"></i>
-              _Take a screenshot
-            </button>
           </div>
         </div>
         <div className="google_map">
-          <Autocomplete
-            handleInput={handleInput}
-            orte={orte}
-          />
+          <Autocomplete handleInput={handleInput} orte={orte} />
         </div>
       </div>
     </>
