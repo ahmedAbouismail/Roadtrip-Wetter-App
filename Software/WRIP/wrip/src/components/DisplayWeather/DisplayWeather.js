@@ -93,7 +93,6 @@ function DisplayWeather({ info }) {
               </table>
             ))}
         </div>
-        <div id="Empfehlung" className="empf"></div>
       </div>
     </div>
   );
