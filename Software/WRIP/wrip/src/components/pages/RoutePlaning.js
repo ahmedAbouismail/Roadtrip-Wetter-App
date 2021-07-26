@@ -1,4 +1,4 @@
-import { React, useState } from "react";
+import { React, useState, createRef, useEffect } from "react";
 import "../../App.css";
 import Autocomplete from "../google-autocomplete/AutoCompelete";
 import DateField from "../DateForm/DateField";
@@ -7,15 +7,26 @@ import isEmpty from "lodash.isempty";
 import Weather from "../weather/weather";
 import DisplayWeather from "../DisplayWeather/DisplayWeather";
 import { Button } from "./../Frontend/Button";
-
-// const init = [{
-//   data: null
-// }];
+import { createFileName, useScreenshot } from "use-react-screenshot";
+import html2canvas from "html2canvas";
+import AutoComplete from "../google-autocomplete-comp/Autocomplete";
 
 function RoutePlaning() {
+  const ref = createRef(null);
+
+  const [inputField, setInputField] = useState({
+    mapApiLoaded: null,
+    mapInstance: null,
+    mapApi: null,
+  });
   const [orte, setOrte] = useState([]);
   const [weather, setWeather] = useState([]);
   const [date, setDate] = useState([]);
+  const [image, takeScreenshot] = useScreenshot({
+    type: "image/jpeg",
+    quality: 1.0,
+  });
+  const [ready, setReady] = useState(false);
   const APIKEY = "29f32e030521b02c5cb257c4aa3c1d5e";
 
   // var date = null
@@ -26,77 +37,126 @@ function RoutePlaning() {
     console.log("Ort", orte);
   };
 
-  // const handleMarker =(marker)=>{
-  //   setMarkers([...markers, markers])
-  // }
-  const handleDelete = ({ target: { id } }) => {
+  const handleDelete = (id) => {
     const values = [...orte];
-    values.splice(id, 1);
+
+    const element = orte.filter((ort) => ort[0] === id);
+    const index = orte.indexOf(element[0]);
+    values.splice(index, 1);
     setOrte(values);
+    console.log("element", element[0]);
+    console.log("Index", index);
+    console.log("Ort ID", id);
 
     const weatherValues = [...weather];
-    weatherValues.splice(id, 1);
+    const weatherElement = weather.filter((info) => info.id === id);
+    const WeatherIndex = weather.indexOf(weatherElement[0]);
+    weatherValues.splice(WeatherIndex, 1);
     setWeather(weatherValues);
+    console.log("weatherElement", weatherElement[0]);
+    console.log("WeatherIndex", WeatherIndex);
+    console.log("Ort ID", id);
   };
 
-  async function weatherData(la, ln) {
+  async function weatherData(place_id, la, ln) {
     const data = await fetch(
       `https://api.openweathermap.org/data/2.5/forecast/daily?lat=${la}&lon=${ln}&units=metric&cnt=16&appid=${APIKEY}`
     )
       .then((res) => res.json())
       .then((data) => data);
 
-    setWeather([...weather, { data: data }]);
+    setWeather([...weather, { id: place_id, data: data }]);
   }
 
-  function handleClick(e) {
-    console.log("id", e.target.id);
-    console.log("key", e.target.key);
-  }
+  const handleInput = (mapApiLoaded, mapInstance, mapApi) => {
+    setInputField({
+      mapApiLoaded: mapApiLoaded,
+      mapInstance: mapInstance,
+      mapApi: mapApi,
+    });
+  };
 
-  function handleDate(dateValue) {
-    setDate([...date, { dateValue }]);
-    console.log("Dates", date);
-  }
+  const addPlace = (place) => {
+    var lat = place.geometry.location.lat();
+    var lng = place.geometry.location.lng();
+    handleOrt(place.place_id, place.name, lat, lng);
+    if (lat != null && lng != null) {
+      weatherData(place.place_id, lat, lng);
+    }
+  };
+
   return (
-    <div>
-      {/* <Planing /> */}
-      <Autocomplete
-        handleOrt={handleOrt}
-        weatherData={weatherData}
-        orte={orte}
-      />
-      {console.log("After comp", orte)}
-      {console.log("After data", weather)}
-
-      {!isEmpty(orte) &&
-        orte.map((ort) => (
-          <div>
-            <div>
-              <Button
-                className="btns"
-                buttonStyle="btn--primary"
-                buttonSize="btn--large"
-                id={orte.indexOf(ort)}
-                onClick={handleDelete}
-              >
-                Delete: <p key={orte.indexOf(ort)}>{ort[1]}</p>
-              </Button>
-            </div>
-            {!isEmpty(weather) &&
-              weather.map(
-                (info) => (
-                  console.log("Info", info),
-                  (
-                    <div>
-                      <DisplayWeather info={info.data} />
-                    </div>
-                  )
-                )
-              )}
+    <>
+      <div className="page">
+        <div className="nav">
+          <div className="input">
+            <h1>Search</h1>
+            <p>Enter a location you want to visit</p>
+            {inputField.mapApiLoaded && (
+              <AutoComplete
+                map={inputField.mapInstance}
+                mapApi={inputField.mapApi}
+                addplace={addPlace}
+              />
+            )}
           </div>
-        ))}
-    </div>
+          <div className="places">
+            {!isEmpty(orte) &&
+              orte.map((ort) => (
+                <div>
+                  <div className="places_Button">
+                    <button
+                      className="delete"
+                      id={ort[0]}
+                      onClick={() => handleDelete(ort[0])}
+                    >
+                      X
+                    </button>
+                    <p key={ort[0]} id="placeName">
+                      {" "}
+                      {ort[1]}
+                    </p>
+                    <button className="edit_button">
+                      <i class="uil uil-pen edit_icon"></i>
+                    </button>
+                  </div>
+                  <p className="description">
+                    Here you can see the weather for the next 16 days. Chose a
+                    day when you want to arrive at that location.
+                  </p>
+                  {!isEmpty(weather) &&
+                    weather.map(
+                      (info) => (
+                        console.log("Weather", weather),
+                        console.log("Info", info),
+                        (
+                          <div className="weather_display">
+                            {info.id === ort[0] && (
+                              <DisplayWeather info={info.data} />
+                            )}
+                          </div>
+                        )
+                      )
+                    )}
+                  {}
+                </div>
+              ))}
+            <button className="screen_button">
+              <i class="uil uil-external-link-alt"></i>
+              _Take a screenshot
+            </button>
+          </div>
+        </div>
+        <div className="google_map">
+          <Autocomplete
+            handleInput={handleInput}
+            // handleOrt={handleOrt}
+            // weatherData={weatherData}
+            orte={orte}
+          />
+        </div>
+      </div>
+    </>
   );
 }
 
