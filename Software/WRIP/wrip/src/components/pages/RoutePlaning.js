@@ -29,6 +29,10 @@ function RoutePlaning() {
   const [ready, setReady] = useState(false);
   const APIKEY = "29f32e030521b02c5cb257c4aa3c1d5e";
 
+  const map = `https://maps.googleapis.com/maps/api/staticmap?center=Brooklyn+Bridge,New+York,NY&zoom=13&size=600x300&maptype=roadmap
+  &markers=color:blue%7Clabel:S%7C40.702147,-74.015794&markers=color:green%7Clabel:G%7C40.711614,-74.012318
+  &markers=color:red%7Clabel:C%7C40.718217,-73.998284
+  &key=${APIKEY}`;
   // var date = null
 
   const handleOrt = (id, n, la, ln) => {
@@ -66,6 +70,25 @@ function RoutePlaning() {
       .then((data) => data);
 
     setWeather([...weather, { id: place_id, data: data }]);
+  }
+
+  async function staticMap(){
+    const str = "&markers=color:blue%7clabel:A%C"
+    var markers = ""
+    orte.map((ort)=>{
+      markers = markers + str + ort[2] + "," + ort[3]
+    })
+    console.log("Markers", markers);
+    const data = await fetch(
+      `https://maps.googleapis.com/maps/api/staticmap?
+      center=germany
+      &zoom=5&size=600x300
+      &maptype=roadmap
+      ${markers}
+      &key=${process.env.REACT_APP_MAP_KEY}`
+    ).then((data)=>{console.log("StaticMap", data.url)}
+      
+    )
   }
 
   const handleInput = (mapApiLoaded, mapInstance, mapApi) => {
@@ -148,6 +171,12 @@ function RoutePlaning() {
             orte={orte}
           />
         </div>
+        <button
+        onClick={staticMap}
+        >
+          Click
+        </button>
+        <img src={map.url}/>
       </div>
     </>
   );
